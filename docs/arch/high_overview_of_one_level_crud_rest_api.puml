@@ -1,0 +1,76 @@
+@startuml
+package exception <<Folder>> {
+    class NotFoundByPrimaryKeyInGetByIdException
+    class NullPrimaryKeyInGetByIdException
+    class NotFoundByPrimaryKeyInUpdateException
+    class NullPrimaryKeyInUpdateException
+    class NotFoundByPrimaryKeyInDeleteByIdException
+    class NullPrimaryKeyInDeleteByIdException
+    class InternalException
+}
+
+package entity <<Folder>> {
+    ' Interface that has to be implemented by entities
+    ' It has the method for retrieving a primary key of an entity
+    interface IEntity<PkType> {
+        PkType getPrimaryKey();
+    }
+    note left of IEntity
+        This interface is used across almost the whole system,
+        so its relations are emitted for readability
+    end note
+}
+
+package mapper <<Folder>> {
+    ' Interfaces for mapping data (Entity -> Response, Request -> Entity, etc.)
+    interface IDataMapper<SourceType, DestinationType>
+
+    ' This interface basically used for mapping an update request to an entity
+    interface IUpdateDataMapper<SourceType, DestinationType, BasisType>
+}
+
+package repo <<Folder>> {
+    ' Interface that has to be implemented by repositories to be able to use in OneLvlCrudService
+    interface IOneLvlCrudRepo<EntityType extends IEntity<PkType>, PkType>
+}
+
+package handler <<Folder>> {
+    ' Clients implement this interface to handle errors appearing in controllers
+    interface IExceptionHandler
+
+    IExceptionHandler ..> exception : <<use>>
+}
+
+package service <<Folder>> {
+    ' Interface for one level crud services
+    interface IOneLvlCrudService<EntityType extends IEntity<PkType>, PkType>
+
+    ' Abstract service implementing a logic of one level crud service
+    abstract AbsOneLvlCrudService<EntityType extends IEntity<PkType>, PkType> implements IOneLvlCrudService
+
+    AbsOneLvlCrudService o- IOneLvlCrudRepo
+    AbsOneLvlCrudService ..> exception : <<throw>>
+}
+
+package provider <<Folder>> {
+    ' Provides components used by controllers
+    interface IOneLvlCrudControllerComponentsProvider<EntityType extends IEntity<PkType>, PkType, ResponseType, ResponseListType, CreateRequestType, UpdateRequestType>
+
+    IOneLvlCrudControllerComponentsProvider ..> IDataMapper
+    IOneLvlCrudControllerComponentsProvider ..> IUpdateDataMapper
+    IOneLvlCrudControllerComponentsProvider ..> IOneLvlCrudService
+    IOneLvlCrudControllerComponentsProvider ....> IExceptionHandler
+}
+
+package controller <<Folder>> {
+    ' Interface for one level CRUD REST Controllers
+    interface IOneLvlCrudController<PkType, ResponseType, ResponseListType, CreateRequestType, UpdateRequestType>
+
+    ' Abstract controller implementing logic of one level CRUD REST controller
+    abstract AbsOneLvlCrudController<EntityType extends IEntity<PkType>, PkType, ResponseType, ResponseListType, CreateRequestType, UpdateRequestType> implements IOneLvlCrudController
+
+    AbsOneLvlCrudController o-- IOneLvlCrudControllerComponentsProvider
+    AbsOneLvlCrudController ..> exception : <<catch>>
+}
+
+@enduml
