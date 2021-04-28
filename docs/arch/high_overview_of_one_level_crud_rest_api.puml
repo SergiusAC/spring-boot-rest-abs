@@ -34,13 +34,6 @@ package repo <<Folder>> {
     interface IOneLvlCrudRepo<EntityType extends IEntity<PkType>, PkType>
 }
 
-package handler <<Folder>> {
-    ' Clients implement this interface to handle errors appearing in controllers
-    interface IExceptionHandler
-
-    IExceptionHandler ..> exception : <<use>>
-}
-
 package service <<Folder>> {
     ' Interface for one level crud services
     interface IOneLvlCrudService<EntityType extends IEntity<PkType>, PkType>
@@ -59,7 +52,6 @@ package provider <<Folder>> {
     IOneLvlCrudControllerComponentsProvider ..> IDataMapper
     IOneLvlCrudControllerComponentsProvider ..> IUpdateDataMapper
     IOneLvlCrudControllerComponentsProvider ..> IOneLvlCrudService
-    IOneLvlCrudControllerComponentsProvider ....> IExceptionHandler
 }
 
 package controller <<Folder>> {
@@ -70,7 +62,6 @@ package controller <<Folder>> {
     abstract AbsOneLvlCrudController<EntityType extends IEntity<PkType>, PkType, ResponseType, ResponseListType, CreateRequestType, UpdateRequestType> implements IOneLvlCrudController
 
     AbsOneLvlCrudController o-- IOneLvlCrudControllerComponentsProvider
-    AbsOneLvlCrudController ..> exception : <<catch>>
 }
 
 @enduml
