@@ -1,7 +1,6 @@
 package org.restabs.springbootrestabs.provider;
 
 import org.restabs.springbootrestabs.entity.IEntity;
-import org.restabs.springbootrestabs.handler.IOneLvlExceptionHandler;
 import org.restabs.springbootrestabs.mapper.IDataMapper;
 import org.restabs.springbootrestabs.mapper.IUpdateDataMapper;
 import org.restabs.springbootrestabs.service.IOneLvlCrudService;
@@ -14,5 +13,4 @@ public interface IOneLvlComponentsProvider<EntityType extends IEntity<PkType>, P
     IDataMapper<List<EntityType>, ResponseListType> getEntityListToResponseMapper();
     IDataMapper<CreateRequestType, EntityType> getCreateRequestToEntityMapper();
     IUpdateDataMapper<UpdateRequestType, EntityType> getUpdateRequestToEntityMapper();
-    IOneLvlExceptionHandler getExceptionHandler();
 }

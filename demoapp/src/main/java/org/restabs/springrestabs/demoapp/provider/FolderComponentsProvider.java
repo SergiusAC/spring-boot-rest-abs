@@ -1,7 +1,5 @@
 package org.restabs.springrestabs.demoapp.provider;
 
-import org.restabs.springbootrestabs.handler.IOneLvlExceptionHandler;
-import org.restabs.springbootrestabs.handler.impl.SimpleOneLvlExceptionHandler;
 import org.restabs.springbootrestabs.mapper.IDataMapper;
 import org.restabs.springbootrestabs.mapper.IUpdateDataMapper;
 import org.restabs.springbootrestabs.provider.IOneLvlComponentsProvider;
@@ -60,10 +58,5 @@ public class FolderComponentsProvider
     @Override
     public IUpdateDataMapper<FolderUpdateRequest, Folder> getUpdateRequestToEntityMapper() {
         return new FolderUpdateRequestToEntityMapper();
-    }
-
-    @Override
-    public IOneLvlExceptionHandler getExceptionHandler() {
-        return new SimpleOneLvlExceptionHandler();
     }
 }

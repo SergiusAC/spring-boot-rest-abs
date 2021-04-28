@@ -5,7 +5,6 @@ import org.restabs.springbootrestabs.exception.*;
 import org.restabs.springbootrestabs.repo.IOneLvlCrudRepo;
 import org.restabs.springbootrestabs.service.IOneLvlCrudService;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
