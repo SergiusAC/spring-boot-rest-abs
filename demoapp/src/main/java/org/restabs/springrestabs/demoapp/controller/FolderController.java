@@ -23,31 +23,31 @@ public class FolderController
 
     @GetMapping
     @Override
-    public ResponseEntity<FolderListResponse> getAll() {
+    public ResponseEntity<?> getAll() {
         return super.getAll();
     }
 
     @GetMapping("/{id}")
     @Override
-    public ResponseEntity<FolderResponse> getById(@PathVariable Long id) {
+    public ResponseEntity<?> getById(@PathVariable Long id) {
         return super.getById(id);
     }
 
     @PostMapping
     @Override
-    public ResponseEntity<FolderResponse> create(@RequestBody @Valid FolderCreateRequest request) {
+    public ResponseEntity<?> create(@RequestBody @Valid FolderCreateRequest request) {
         return super.create(request);
     }
 
     @PutMapping("/{id}")
     @Override
-    public ResponseEntity<FolderResponse> update(@PathVariable Long id, @RequestBody @Valid FolderUpdateRequest request) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid FolderUpdateRequest request) {
         return super.update(id, request);
     }
 
     @DeleteMapping("/{id}")
     @Override
-    public ResponseEntity<FolderResponse> deleteById(@PathVariable Long id) {
+    public ResponseEntity<?> deleteById(@PathVariable Long id) {
         return super.deleteById(id);
     }
 }

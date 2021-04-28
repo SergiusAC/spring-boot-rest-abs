@@ -18,21 +18,21 @@ public class AbsOneLvlCrudController<EntityType extends IEntity<PkType>, PkType,
     }
 
     @Override
-    public ResponseEntity<ResponseListType> getAll() {
+    public ResponseEntity<?> getAll() {
         List<EntityType> all = provider.getCrudService().getAll();
         ResponseListType response = provider.getEntityListToResponseMapper().map(all);
         return ResponseEntity.ok(response);
     }
 
     @Override
-    public ResponseEntity<ResponseType> getById(PkType id) {
+    public ResponseEntity<?> getById(PkType id) {
         EntityType entity = provider.getCrudService().getById(id);
         ResponseType response = provider.getEntityToResponseMapper().map(entity);
         return ResponseEntity.ok(response);
     }
 
     @Override
-    public ResponseEntity<ResponseType> create(CreateRequestType request) {
+    public ResponseEntity<?> create(CreateRequestType request) {
         EntityType entityToCreate = provider.getCreateRequestToEntityMapper().map(request);
         EntityType created = provider.getCrudService().create(entityToCreate);
         ResponseType response = provider.getEntityToResponseMapper().map(created);
@@ -40,7 +40,7 @@ public class AbsOneLvlCrudController<EntityType extends IEntity<PkType>, PkType,
     }
 
     @Override
-    public ResponseEntity<ResponseType> update(PkType id, UpdateRequestType request) {
+    public ResponseEntity<?> update(PkType id, UpdateRequestType request) {
         EntityType existingEntity = provider.getCrudService().getById(id);
         EntityType entityToUpdate = provider.getUpdateRequestToEntityMapper().map(request, existingEntity);
         EntityType updated = provider.getCrudService().update(entityToUpdate);
@@ -49,7 +49,7 @@ public class AbsOneLvlCrudController<EntityType extends IEntity<PkType>, PkType,
     }
 
     @Override
-    public ResponseEntity<ResponseType> deleteById(PkType id) {
+    public ResponseEntity<?> deleteById(PkType id) {
         EntityType deleted = provider.getCrudService().deleteById(id);
         ResponseType response = provider.getEntityToResponseMapper().map(deleted);
         return ResponseEntity.ok(response);
