@@ -5,7 +5,6 @@ import org.restabs.springrestabs.demoapp.entity.Folder;
 import org.restabs.springrestabs.demoapp.response.FolderListResponse;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
